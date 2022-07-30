@@ -127,7 +127,6 @@ document.addEventListener("DOMContentLoaded", function () {
     .collection("posts")
     .get()
     .then((snapshot) => {
-      console.log('data');
       setupPosts(snapshot.docs);
     });
 
