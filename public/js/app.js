@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         postList.innerHTML += `
         <div class="card mx-2 my-2" style="width: 14rem;height: 15rem;overflow-y: auto;">
-    <div class="card-header bg-dark text-white">
+    <div class="card-header bg-danger text-white">
       ${post.Name}
     </div>
     <div class="card-body" style="height: 12rem;overflow-y: auto;" >
