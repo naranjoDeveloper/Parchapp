@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   // //mostrar resultados tabla sin logearse
-
+  setupPosts()
   
 
   // // events
