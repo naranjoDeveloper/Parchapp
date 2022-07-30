@@ -1,89 +1,200 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/9.6.10/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/9.6.10/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/9.6.10/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/9.6.10/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/9.6.10/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/9.6.10/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/9.6.10/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/9.6.10/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/9.6.10/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/9.6.10/firebase-performance-compat.js"></script>
-    <!-- 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="aceIcon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/main.css">
+  <title>Mini App De Notas</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet">
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/9.6.10/firebase-app-compat.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/9.6.10/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/9.6.10/firebase-database-compat.js"></script>
+  <script defer src="/__/firebase/9.6.10/firebase-firestore-compat.js"></script>
+  <script defer src="/__/firebase/9.6.10/firebase-functions-compat.js"></script>
+  <script defer src="/__/firebase/9.6.10/firebase-messaging-compat.js"></script>
+  <script defer src="/__/firebase/9.6.10/firebase-storage-compat.js"></script>
+  <script defer src="/__/firebase/9.6.10/firebase-analytics-compat.js"></script>
+  <script defer src="/__/firebase/9.6.10/firebase-remote-config-compat.js"></script>
+  <script defer src="/__/firebase/9.6.10/firebase-performance-compat.js"></script>
+  <!-- 
       initialize the SDK after all desired features are loaded, set useEmulator to false
       to avoid connecting the SDK to running emulators.
     -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+
+  <style>
+    /* ===== Scrollbar CSS ===== */
+    /* Firefox */
+    * {
+      scrollbar-width: auto;
+      scrollbar-color: #000000 #ffffff;
+      font-family: 'Ubuntu', sans-serif;
+    }
+
+    /* Chrome, Edge, and Safari */
+    *::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    *::-webkit-scrollbar-track {
+      background: #ffffff;
+    }
+
+    *::-webkit-scrollbar-thumb {
+      background-color: #000000;
+      border-radius: 0px;
+      border: 0px none #ffffff;
+    }
+  </style>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
+    <div class="container">
+
+      <a class="navbar-brand" href="#">Sunflower</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item logged-out" style="display: none;">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#signinModal">Signin</a>
+          </li>
+          <li class="nav-item logged-out" style="display: none;">
+            <a class="nav-link" href="views/register.html" >Signup</a>
+          </li>
+          <li class="nav-item logged-in" style="display: none;">
+            <a class="nav-link" href="#" id="logout">Logout</a>
+          </li>
+          <li class="nav-item logged-in" style="display: none;">
+            <a class="nav-link" href="#" id="logout">San Francisco</a>
+          </li>
+
+        </ul>
+      </div>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+  </nav>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+
+
+  <div class="container-fluid">
+
+    <div class="row my-3">
+      <div class="col-md-4">
+        <h3 class="pb-2 text-center"> Esta es una miniapp para decir algo anonimamente</h3>
+        <div class="card">
+          <div class="card-header bg-dark">
+            <h3 class=" text-white text-center mt-2">Escribe Lo que quieras!!</h3>
+
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <input type="text" id="titulo" class="form-control mt-2" placeholder="Titulo del texto">
+
+              <input type="text" name="" id="contenido" class="form-control my-2" placeholder="Contenido Del Texto">
+
+              <button class="btn-dark btn-lg btn-block mt-2" id="create"> Crear Texto </button>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-8 col-lg-8 col-sm-12">
+        <div class="row posts">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>SignUp</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="signup-form">
+            <div class="form-group">
+              <input type="text" id="signup-email" class="form-control" placeholder="Title" required>
+            </div>
+            <div class="form-group">
+              <input type="password" id="signup-password" class="form-control" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="signinModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalSignin"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>SignIn</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="login-form">
+            <div class="form-group">
+              <input type="text" id="login-email" class="form-control" placeholder="Title" required>
+            </div>
+            <div class="form-group">
+              <input type="password" id="login-password" class="form-control" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-secondary btn-block">Login</button>
+            <button type="button" class="btn btn-info btn-block" id="googleLogin">Login with Google</button>
+            <button type="button" class="btn btn-primary btn-block" id="facebookLogin">Login with Facebook</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- SCRIPTS -->
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/app.js"></script>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+
+
+</body>
+
 </html>
