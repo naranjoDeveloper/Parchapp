@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../aceIcon.ico" type="image/x-icon">
+    <title>ParchApp</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet">
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/9.6.10/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/9.6.10/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/9.6.10/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/9.6.10/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/9.6.10/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/9.6.10/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/9.6.10/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/9.6.10/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/9.6.10/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/9.6.10/firebase-performance-compat.js"></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+
+    <style>
+        /* ===== Scrollbar CSS ===== */
+        /* Firefox */
+        * {
+            scrollbar-width: auto;
+            scrollbar-color: #000000 #ffffff;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        /* Chrome, Edge, and Safari */
+        *::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        *::-webkit-scrollbar-track {
+            background: #ffffff;
+        }
+
+        *::-webkit-scrollbar-thumb {
+            background-color: #000000;
+            border-radius: 0px;
+            border: 0px none #ffffff;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Image and text -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <img src="https://cdn.pixabay.com/photo/2012/04/14/15/49/marijuana-34353_1280.png" width="30" height="30" alt=""
+            class="mr-2">
+        <a class="navbar-brand" href="index2.html">ParchApp</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">Pagina Principal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                        aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+
+
+            </ul>
+            <div class="form-inline my-2 mx-2 my-lg-0">
+                <div class="btn btn-outline-primary my-2 my-sm-0 mx-2 logged-out" style="display: none;"
+                    data-toggle="modal" data-target="#iniciarSesion">
+                    Iniciar Sesion</button></div>
+                <div class="btn btn-outline-success my-2 my-sm-0 logged-out" style="display: none;" type="submit">
+                    Registrarse</button>
+                </div>
+                <a class="my-2 my-sm-0 mx-2 logged-in text-white" style="display: none;" id="nameNav"
+                    href="profile.html">
+                    </button></a>
+                <div class="btn btn-outline-danger my-2 my-sm-0 mx-2 logged-in" style="display: none;" id="logout">
+                    Logout</button></div>
+            </div>
+    </nav>
+
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">User</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <img id="imgName"
+                                alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                            <h5 class="my-3" id="userName"></h5>
+                          
+                            <div class="d-flex justify-content-center mb-2">
+                                <button type="button" class="btn btn-primary mx-1" id="cambiarClave"">Cambiar Clave</button>
+                                <button type="button" class="btn btn-outline-primary ms-1">Editar Informacion</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-8" id="info1">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Nombre De Usuario</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0" id="userName2"></p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Email</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0" id="emailName"></p>
+                                </div>
+                            </div>
+                            <hr>
+                            
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Proveedor</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0" id="provedorName"></p>
+                                </div>
+                            </div>                          
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-8" id="info2" style="display: none;">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Contraseña Nueva</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0" id="userName2"></p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Email</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0" id="emailName"></p>
+                                </div>
+                            </div>
+                            <hr>
+                            
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Proveedor</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0" id="provedorName"></p>
+                                </div>
+                            </div>                          
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Modal Iniciar Sesion -->
+    <div class="modal fade " id="iniciarSesion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="text-center" id="exampleModalLabel">Iniciar Sesion En ParchApp</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="login-form">
+                        <div class="form-group">
+                            <h5 for="exampleInputEmail1">Correo Electronico</h5>
+                            <input type="email" class="form-control" id="emailLogin" aria-describedby="emailHelp"
+                                placeholder="Ingresa Tu Correo Electronico" required>
+                        </div>
+                        <div class="form-group">
+                            <h5 for="exampleInputPassword1">Contraseña</h5>
+                            <input type="password" class="form-control" id="passLogin"
+                                placeholder="Ingresa Tu Contraseña" required>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="logearse" class="btn btn-dark btn-block mx-2 my-2">Iniciar Sesion</button>
+                    <button type="submit" id="googleLogin" class="btn btn-outline-dark btn-block mx-2 my-2"><img
+                            class="mb-1 mx-1" width="20" height="20"
+                            src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt="" srcset=""> Iniciar
+                        Sesion Con Google </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/parchapp/profiles.js"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
