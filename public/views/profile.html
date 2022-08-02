@@ -116,9 +116,8 @@
                 <div class="col">
                     <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
                         <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">User</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+                            <li class="breadcrumb-item"><a href="profile.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Cambiar Clave</li>
                         </ol>
                     </nav>
                 </div>
@@ -128,18 +127,17 @@
                 <div class="col-lg-4">
                     <div class="card mb-4">
                         <div class="card-body text-center">
-                            <img id="imgName"
-                                alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                            <img id="imgName" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
                             <h5 class="my-3" id="userName"></h5>
-                          
+
                             <div class="d-flex justify-content-center mb-2">
                                 <button type="button" class="btn btn-primary mx-1" id="cambiarClave"">Cambiar Clave</button>
-                                <button type="button" class="btn btn-outline-primary ms-1">Editar Informacion</button>
+                                <button type="button" class="btn btn-outline-primary ms-1" id="editarInfo">Editar Informacion</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-8" id="info1">
                     <div class="card mb-4">
                         <div class="card-body">
@@ -161,7 +159,7 @@
                                 </div>
                             </div>
                             <hr>
-                            
+
                             <div class="row">
                                 <div class="col-sm-3">
                                     <p class="mb-0">Proveedor</p>
@@ -169,7 +167,29 @@
                                 <div class="col-sm-9">
                                     <p class="text-muted mb-0" id="provedorName"></p>
                                 </div>
-                            </div>                          
+                            </div>
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Numero Telefonico</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0" id="telefonoName"></p>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">URL Foto</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0" id="fotoURL"></p>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -178,12 +198,48 @@
                 <div class="col-lg-8" id="info2" style="display: none;">
                     <div class="card mb-4">
                         <div class="card-body">
+                            <form id="cambiarPass">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Contraseña Nueva</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="password" id="passName" minlength="6"
+                                            placeholder="Ingresar la nueva contraseña" class="form-control">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Confirmar contraseña</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="password" id="passName2" minlength="6"
+                                            placeholder="Reingrese la nueva Contraseña" class="form-control">
+                                        <div id="validationServer03Feedback" class="invalid-feedback">
+                                            Las Contraseñas no son Iguales.
+                                        </div>
+
+                                    </div>
+                                    <hr>
+                                    <button class="btn-outline-dark btn-lg btn-block mt-6" style="
+                                    margin-top: 30px;
+                                ">Cambiar Contraseña</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-8" id="info3" style="display: none;">
+                    <div class="card mb-4">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <p class="mb-0">Contraseña Nueva</p>
+                                    <p class="mb-0">asdasdsad De Usuario</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0" id="userName2"></p>
+                                    <input type="text" id="userName2">
                                 </div>
                             </div>
                             <hr>
@@ -196,7 +252,7 @@
                                 </div>
                             </div>
                             <hr>
-                            
+
                             <div class="row">
                                 <div class="col-sm-3">
                                     <p class="mb-0">Proveedor</p>
@@ -204,7 +260,29 @@
                                 <div class="col-sm-9">
                                     <p class="text-muted mb-0" id="provedorName"></p>
                                 </div>
-                            </div>                          
+                            </div>
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Numero Telefonico</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0" id="telefonoName"></p>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">URL Foto</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0" id="fotoURL"></p>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
