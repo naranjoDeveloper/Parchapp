@@ -98,7 +98,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if(user.displayName != userN.value && user.photoURL != fotoN.value && user.email != emailN.value) {
+      alert('pasa')
       updateEmail(emailN.value)
+      updateInfo(userN.value , fotoN.value)
     }
 
     // console.log(emailN.value)
@@ -199,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
       user.displayName ? (usernameNav.innerHTML = displayName) : "";
       // ...
     } else {
-      window.location = "./index2.html";
+      window.location = "./index.html";
       loginCheck(user);
     }
   });

@@ -11,17 +11,31 @@ document.addEventListener("DOMContentLoaded", function () {
   // firebase.analytics().logEvent('tutorial_completed');
   // firebase.performance(); // call to activate
 
-  //seleccion de los elementos html para los logeados y sin logear
   const loggedOutLinks = document.querySelectorAll(".logged-out");
   const loggedInLinks = document.querySelectorAll(".logged-in");
 
+  // const createButton = document.getElementById("create");
+
+  // createButton.addEventListener("click", () => {
+  //   let textTitle = document.getElementById("titulo").value;
+  //   let textContent = document.getElementById("contenido").value;
+
+  //   if (textContent.length <= 0 || textTitle.length <= 0) {
+  //     Swal.fire({
+  //       title: "Longitud Invalid",
+  //       text: "Los campos no pueden ser vacios",
+  //       icon: "error",
+  //     });
+  //   } else {
+  //     createPost(textTitle, textContent);
+  //   }
+  // });
+
   const loginCheck = (user) => {
     if (user) {
-      // alert("si");
       loggedInLinks.forEach((link) => (link.style.display = "block"));
       loggedOutLinks.forEach((link) => (link.style.display = "none"));
     } else {
-      // alert("no");
       loggedInLinks.forEach((link) => (link.style.display = "none"));
       loggedOutLinks.forEach((link) => (link.style.display = "block"));
     }
@@ -51,8 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // SignUp
 
-  // Cerrar sesion
-  const logout = document.getElementById("logout");
+  // Logout
+  const logout = document.querySelector("#logout");
 
   logout.addEventListener("click", (e) => {
     e.preventDefault();
@@ -60,56 +74,76 @@ document.addEventListener("DOMContentLoaded", function () {
       .auth()
       .signOut()
       .then(() => {
-        Swal.fire({
-          title: "Felicidades",
-          text: "Sesion Cerrada Correctamente",
-          icon: "success",
-          timer: 1000,
-          showConfirmButton: false,
-        });
+        console.log("signup out");
       });
   });
 
-  // // Iniciar Sesion de la parchapp
-  const signInForm = document.getElementById("login-form");
-  const usernameNav = document.getElementById("nameNav");
+  // SingIn
+  const signInForm = document.querySelector("#login-form");
 
   signInForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const email = signInForm["emailLogin"].value;
-    const password = signInForm["passLogin"].value;
+    const email = signInForm["login-email"].value;
+    const password = signInForm["login-password"].value;
 
     // Authenticate the User
     firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          // clear the form
-          signInForm.reset();
-          // close the modal
-          $("#iniciarSesion").modal("hide");
-        }) .catch((error) => {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-
-
-          console.log(errorCode);
-        });
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // clear the form
+        signInForm.reset();
+        // close the modal
+        $("#signinModal").modal("hide");
+      });
   });
 
+  // Posts
+  const postList = document.getElementById("posts")
 
 
+postList.innerHTML += 'daadada';
+
+  const setupPosts = (data) => {
+    if (data.length) {
+      data.forEach((doc) => {
+        const post = doc.data();
+
+        postList.innerHTML += `
+        <div class="card mx-2 my-2 col-3" c>
+    <div class="card-header bg-danger text-white">
+      ${post.Name}
+    </div>
+    <div class="card-body" style="height: 12rem;overflow-y: auto;" >
+
+      <h4 class="font-weight-bold"> ${post.Content} </h4>
+    </div>
+  </div>
+        `;
+      });
+    }
+  };
+
+  //mostrar resultados tabla sin logearse
+
+  firebase
+    .firestore()
+    .collection("posts")
+    .get()
+    .then((snapshot) => {
+      setupPosts(snapshot.docs);
+    });
+
+  // events
+  // list for auth state changes
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      var uid = user.uid;
+      console.log("signin");
       loginCheck(user);
-      user.displayName ?  usernameNav.innerHTML = user.displayName : ''
-      // ...
     } else {
+      console.log("signout");
+      setupPosts([]);
       loginCheck(user);
-
     }
   });
 
@@ -119,47 +153,19 @@ document.addEventListener("DOMContentLoaded", function () {
   googleButton.addEventListener("click", (e) => {
     e.preventDefault();
     signInForm.reset();
-    $("#iniciarSesion").modal("hide");
+    $("#signinModal").modal("hide");
 
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase
       .auth()
       .signInWithPopup(provider)
       .then((result) => {
-        const {user} = result.user.multiFactor;
-        console.log(user);
-        Swal.fire({
-          title: "Felicidades",
-          text: "Sesion Con Google Iniciada Correctamente",
-          icon: "success",
-          timer: 1000,
-          showConfirmButton: false,
-        });
+        console.log(result);
+        console.log("google sign in");
       })
       .catch((err) => {
         console.log(err);
       });
   });
 
-
-  // // Login with Facebook
-  // const facebookButton = document.querySelector("#facebookLogin");
-
-  // facebookButton.addEventListener("click", (e) => {
-  //   e.preventDefault();
-  //   signInForm.reset();
-  //   $("#signinModal").modal("hide");
-
-  //   const provider = new firebase.auth.FacebookAuthProvider();
-  //   firebase
-  //     .auth()
-  //     .signInWithPopup(provider)
-  //     .then((result) => {
-  //       console.log(result);
-  //       console.log("facebook sign in");
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // });
 });

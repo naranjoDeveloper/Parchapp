@@ -64,9 +64,9 @@
 
     <!-- Image and text -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <img src="https://cdn.pixabay.com/photo/2012/04/14/15/49/marijuana-34353_1280.png" width="30" height="30" alt=""
-            class="mr-2">
-        <a class="navbar-brand" href="index2.html">ParchApp</a>
+        <img src="https://images.vexels.com/media/users/3/150912/isolated/preview/5582f43db67b0645223d2dfb005c6c27-doodle-de-color-de-hoja-de-cannabis.png"
+            width="50" height="50" alt="" class="mr-2">
+        <a class="navbar-brand" href="index.html">ParchApp</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -102,17 +102,51 @@
                 <div class="btn btn-outline-success my-2 my-sm-0 logged-out" style="display: none;" type="submit">
                     Registrarse</button>
                 </div>
-                <a class="my-2 my-sm-0 mx-2 logged-in text-white" style="display: none;" id="nameNav" href="profile.html">
+                <a class="my-2 h5 my-sm-0 logged-in text-white mr-2" id="nameNav"
+                    href="../views/profile.html">
                     </button></a>
-                <div class="btn btn-outline-danger my-2 my-sm-0 mx-2 logged-in" style="display: none;" id="logout">
+                <div class="btn btn-outline-danger my-sm-0 mx-2 logged-in btn-lg" style="display: none;" id="logout">
                     Logout</button></div>
             </div>
     </nav>
 
-    <div class="container">
-        <h3 class="text-center sisas">
+    <div class="container-fluid">
 
-        </h3>
+        <div class="row my-3">
+            <div class="col-md-4">
+                <h3 class="pb-2 text-center"> Esta es una miniapp para decir algo anonimamente</h3>
+                <div class="card">
+                    <div class="card-header bg-dark">
+                        <h3 class=" text-white text-center mt-2">Escribe Lo que quieras!!</h3>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input type="text" id="titulo" class="form-control mt-2" placeholder="Titulo del texto">
+
+                            <input type="text" name="" id="contenido" class="form-control my-2"
+                                placeholder="Contenido Del Texto">
+                                <input type="checkbox"  id="checkA" class="mx-2">Con tu nombre (Necesario tener una sesion) </input>
+
+                                <input disabled value="ANONIMO" placeholder id="autor" class="form-control my-2">
+
+                            <button class="btn-dark btn-lg btn-block mt-2" id="create"> Crear Texto </button>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <img src="https://www.egames.news/__export/1652812776870/sites/debate/img/2022/05/17/manga1_3.jpg_903948830.jpg"
+                    class="img-thumbnail" alt="" srcset="">
+
+            </div>
+            <div class="col-md-7 col-lg-8 col-sm-12">
+                <div class="row posts">
+
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -155,7 +189,7 @@
 
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../js/parchapp/main.js"></script>
+    <script src="../js/app.js"></script>
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

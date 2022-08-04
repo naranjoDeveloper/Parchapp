@@ -14,6 +14,19 @@ document.addEventListener("DOMContentLoaded", function () {
   const loggedOutLinks = document.querySelectorAll(".logged-out");
   const loggedInLinks = document.querySelectorAll(".logged-in");
 
+  const usernameNav = document.getElementById("nameNav");
+
+
+  const checkA = document.getElementById('checkA');
+  const autor = document.getElementById('autor');
+
+  checkA.addEventListener("click", () =>{
+    const user = firebase.auth().currentUser;
+
+    
+    checkA.checked ? autor.value = user.displayName   : autor.value = 'ANONIMO'
+  })
+
   const createButton = document.getElementById("create");
 
   createButton.addEventListener("click", () => {
@@ -22,12 +35,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (textContent.length <= 0 || textTitle.length <= 0) {
       Swal.fire({
-        title: "Longitud Invalid",
+        title: "Longitud Invalida",
         text: "Los campos no pueden ser vacios",
         icon: "error",
       });
     } else {
-      createPost(textTitle, textContent);
+      createPost(textTitle, textContent , autor.value);
     }
   });
 
@@ -41,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  const createPost = (title, content) => {
+  const createPost = (title, content , autor) => {
     firebase
       .firestore()
       .collection("posts")
@@ -49,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .set({
         Content: content,
         Name: title,
+        autor : autor
       })
       .then(() => {
         Swal.fire({
@@ -114,6 +128,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       <h4 class="font-weight-bold"> ${post.Content} </h4>
     </div>
+    <div class="card-footer">
+    ${post.autor}
+    </div>
   </div>
         `;
       });
@@ -134,8 +151,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // list for auth state changes
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      console.log("signin");
       loginCheck(user);
+      user.displayName ? (usernameNav.innerHTML += user.displayName) : "";
     } else {
       console.log("signout");
       setupPosts([]);
@@ -149,36 +166,20 @@ document.addEventListener("DOMContentLoaded", function () {
   googleButton.addEventListener("click", (e) => {
     e.preventDefault();
     signInForm.reset();
-    $("#signinModal").modal("hide");
 
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase
       .auth()
       .signInWithPopup(provider)
       .then((result) => {
-        console.log(result);
-        console.log("google sign in");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
-
-  // Login with Facebook
-  const facebookButton = document.querySelector("#facebookLogin");
-
-  facebookButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    signInForm.reset();
-    $("#signinModal").modal("hide");
-
-    const provider = new firebase.auth.FacebookAuthProvider();
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then((result) => {
-        console.log(result);
-        console.log("facebook sign in");
+        $("#iniciarSesion").modal("hide");
+        Swal.fire({
+          title: "Felicidades",
+          text: "Sesion Con Google Iniciada Correctamente",
+          icon: "success",
+          timer: 1000,
+          showConfirmButton: false,
+        });
       })
       .catch((err) => {
         console.log(err);
