@@ -40,10 +40,19 @@ document.addEventListener("DOMContentLoaded", function () {
   const divInfo2 = document.getElementById("info2");
   const telefonoName = document.getElementById("telefonoName");
   const formChangePass = document.getElementById("cambiarPass");
-  const fotoURL = document.getElementById("fotoURL"); 
-  const info3 = document.getElementById("info3");
-  const editarInfo = document.getElementById('editarInfo');
-  
+  const fotoURL = document.getElementById("fotoURL");
+  const divInfo3 = document.getElementById("info3");
+  const editarInfo = document.getElementById("editarInfo");
+  const contenedor = document.getElementById("contenedor");
+  const actualizarInfo = document.getElementById("actualizarInfo");
+
+  //inputs div actualizar info3
+
+  const userN = document.getElementById("userN");
+  const emailN = document.getElementById("emailN");
+  const fotoN = document.getElementById("fotoN");
+
+  //boton actualizar informacion
 
   //inputs cambio contraseña
 
@@ -57,15 +66,90 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   editarInfo.addEventListener("click", () => {
+    //se ocultan los divs y se hace el append del div 3 que no funciona con style display block
     divInfo1.style.display = "none";
-    info3.style.display = "inline-block";
-  })
+    cambiarClave.style.display = "none";
+    divInfo3.style.display = "block";
+    contenedor.append(divInfo3);
+
+    const user = firebase.auth().currentUser;
+
+    userN.value = user.displayName;
+    emailN.value = user.email;
+    fotoN.value = user.photoURL;
+  });
 
   formChangePass.addEventListener("submit", (e) => {
     e.preventDefault();
 
     changePassword(passName.value, passName2.value);
   });
+
+  actualizarInfo.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    // console.log(userN.value , emailN.value , numeroN.value , fotoN.value);
+    const user = firebase.auth().currentUser;
+
+    if (user.displayName === userN.value && user.photoURL === fotoN.value) {
+      updateEmail(emailN.value)
+    } else {
+      updateInfo(userN.value , fotoN.value)
+    }
+
+    if(user.displayName != userN.value && user.photoURL != fotoN.value && user.email != emailN.value) {
+      updateEmail(emailN.value)
+    }
+
+    // console.log(emailN.value)
+  });
+
+  const updateEmail = (email) => {
+    const user = firebase.auth().currentUser;
+    console.log(user.email, emailN.value);
+    user
+      .updateEmail(email)
+      .then(() => {
+        Swal.fire({
+          text: "Correo Actualizado Correctamente",
+          icon: "success",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+  };
+
+  const updateInfo = (nUser, nURL) => {
+    nUser = userN.value;
+    nURL = fotoN.value;
+
+    const user = firebase.auth().currentUser;
+
+    console.log(user);
+
+    user
+      .updateProfile({
+        displayName: nUser,
+        photoURL: nURL,
+      })
+      .then(() => {
+        Swal.fire({
+          text: "Datos Actualizados Correctamente",
+          icon: "success",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+          location.reload();
+        }, 1300);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const changePassword = (pass1, pass2) => {
     //comprobacion de la igualdad de los campos
@@ -101,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (user) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
-      const { displayName, photoURL, uid, email, providerId, phoneNumber , } =
+      const { displayName, photoURL, uid, email, providerId, phoneNumber } =
         user;
       profileN.innerHTML += displayName;
       profileName.innerHTML += displayName;
@@ -115,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
       user.displayName ? (usernameNav.innerHTML = displayName) : "";
       // ...
     } else {
-      window.location = './index2.html';
+      window.location = "./index2.html";
       loginCheck(user);
     }
   });
